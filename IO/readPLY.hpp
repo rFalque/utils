@@ -18,7 +18,7 @@ void readPLY(const std::string & filepath,
              Eigen::MatrixXd &N,
              Eigen::MatrixXi &RGB)
 {
-    bool verbose = false;
+    bool verbose = true;
 
 	try
 	{
@@ -40,6 +40,19 @@ void readPLY(const std::string & filepath,
         }
 		// Tinyply treats parsed data as untyped byte buffers. See below for examples.
 		std::shared_ptr<tinyply::PlyData> vertices_handle, normals_handle, faces_handle, texcoords_handle, RGB_handle;
+        bool vertices_are_float = false;
+        bool normals_are_float = false;
+
+        // get type
+        for (auto e : file.get_elements()) {
+            for (auto p : e.properties) {
+                if (e.name == "vertex" && p.name == "x")
+                    vertices_are_float = tinyply::PropertyTable[p.propertyType].str == "float";
+                if (e.name == "vertex" && p.name == "nx")
+                    normals_are_float = tinyply::PropertyTable[p.propertyType].str == "float";
+            }
+        }
+        std::cout << "vertices_are_float : " << vertices_are_float << std::endl;
 
 		// The header information can be used to programmatically extract properties on elements
 		// known to exist in the header prior to reading the data. For brevity of this sample, properties 
@@ -74,23 +87,41 @@ void readPLY(const std::string & filepath,
 
         if (vertices_handle) 
         {
-            const size_t numVerticesBytes = vertices_handle->buffer.size_bytes();
-            std::vector<Eigen::Vector3f> vertices(vertices_handle->count);
-            std::memcpy(vertices.data(), vertices_handle->buffer.get(), numVerticesBytes);
-
-            V.resize(3, vertices.size());
-            for (int i=0; i<vertices.size(); i++)
-                V.col(i) = vertices[i].cast<double>();
+            if (vertices_are_float) {
+                const size_t numVerticesBytes = vertices_handle->buffer.size_bytes();
+                std::vector<Eigen::Vector3f> vertices(vertices_handle->count);
+                std::memcpy(vertices.data(), vertices_handle->buffer.get(), numVerticesBytes);
+                V.resize(3, vertices.size());
+                for (int i=0; i<vertices.size(); i++)
+                    V.col(i) = vertices[i].cast<double>();
+            } else {
+                const size_t numVerticesBytes = vertices_handle->buffer.size_bytes();
+                std::vector<Eigen::Vector3d> vertices(vertices_handle->count);
+                std::memcpy(vertices.data(), vertices_handle->buffer.get(), numVerticesBytes);
+                V.resize(3, vertices.size());
+                for (int i=0; i<vertices.size(); i++)
+                    V.col(i) = vertices[i];
+            }
         }
 
         if (normals_handle) {
-            const size_t numNormalsBytes = normals_handle->buffer.size_bytes();
-            std::vector<Eigen::Vector3f> normals(normals_handle->count);
-            std::memcpy(normals.data(), normals_handle->buffer.get(), numNormalsBytes);
+            if (normals_are_float) {
+                const size_t numNormalsBytes = normals_handle->buffer.size_bytes();
+                std::vector<Eigen::Vector3f> normals(normals_handle->count);
+                std::memcpy(normals.data(), normals_handle->buffer.get(), numNormalsBytes);
 
-            N.resize(3, normals.size());
-            for (int i=0; i<normals.size(); i++)
-                N.col(i) = normals[i].cast<double>();
+                N.resize(3, normals.size());
+                for (int i=0; i<normals.size(); i++)
+                    N.col(i) = normals[i].cast<double>();
+            } else {
+                const size_t numNormalsBytes = normals_handle->buffer.size_bytes();
+                std::vector<Eigen::Vector3d> normals(normals_handle->count);
+                std::memcpy(normals.data(), normals_handle->buffer.get(), numNormalsBytes);
+
+                N.resize(3, normals.size());
+                for (int i=0; i<normals.size(); i++)
+                    N.col(i) = normals[i];
+            }
         }
 
         if (faces_handle) {
