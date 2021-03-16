@@ -1,17 +1,4 @@
-/*
-to add in CMakeList:
-
-set(Boost_USE_STATIC_LIBS OFF) 
-set(Boost_USE_MULTITHREADED ON)  
-set(Boost_USE_STATIC_RUNTIME OFF) 
-find_package(Boost 1.45.0 COMPONENTS filesystem) 
-
-include_directories(${filename} ${Boost_INCLUDE_DIRS} )
-target_link_libraries(${filename} ${Boost_LIBRARIES} )
-
-*/
-
-#pragma once
+#include "IO/folderListFiles.h"
 
 #include <iostream>      // std::cout
 #include <fstream>      // std::ifstream
@@ -21,6 +8,10 @@ target_link_libraries(${filename} ${Boost_LIBRARIES} )
 
 #include "boost/filesystem.hpp"   // includes all needed Boost.Filesystem declarations
 
+
+std::vector<std::string> extension_list {".ply", ".stl", ".csv"};
+
+
 struct sort_functor
 {
     bool operator ()(const std::string & a,const std::string & b)
@@ -28,6 +19,7 @@ struct sort_functor
         return a < b;// or some custom code
     }
 };
+
 
 int load_folder(std::string folder_path, 
                 std::vector< std::string >& filepaths,
@@ -46,13 +38,19 @@ int load_folder(std::string folder_path,
     {
         std::string filename = itr->path().stem().c_str();
         std::string filepath = itr->path().c_str();
-        if( not boost::filesystem::is_directory(itr->status()))
-            if(filepath.substr( filepath.length() - 4 ) == ".ply" || filepath.substr( filepath.length() - 4 ) == ".csv")
+        if( not boost::filesystem::is_directory(itr->status())) {
+            bool file_has_good_extension = false;
+            for (int i=0; i<extension_list.size(); i++)
+                if (filepath.substr( filepath.length() - 4 ) == extension_list[i])
+                    file_has_good_extension = true;
+
+            if(file_has_good_extension)
             {
                 filenames.push_back(filename);
                 filepaths.push_back(filepath);
                 counter ++;
             }
+        }
     }
 
     std::sort(filenames.begin(),filenames.end(),sort_functor());

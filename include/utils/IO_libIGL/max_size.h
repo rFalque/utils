@@ -17,12 +17,22 @@ namespace igl
   // Inputs:
   //   V  vector of list types T
   // Returns max .size() found in V, returns -1 if V is empty
+  
   template <typename T>
-  inline int max_size(const std::vector<T> & V);
-}
+  inline int max_size(const std::vector<T> & V)
+  {
+    int max_size = -1;
+    for(
+      typename std::vector<T>::const_iterator iter = V.begin();
+      iter != V.end(); 
+      iter++)
+    {
+      int size = (int)iter->size();
+      max_size = (max_size > size ? max_size : size);
+    }
+    return max_size;
+  }
 
-#ifndef IGL_STATIC_LIBRARY
-#  include "max_size.cpp"
-#endif
+}
 
 #endif

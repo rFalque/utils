@@ -4,18 +4,14 @@
 *   16/01/2020
 */
 
-#ifndef COMPUTE_NORMALS_FROM_MESH_H
-#define COMPUTE_NORMALS_FROM_MESH_H
+#include "mesh/computeNormals.h"
 
-#include <iostream>
-#include <Eigen/Dense>
-#include <stdexcept>
-
-inline Eigen::MatrixXd compute_normals(Eigen::MatrixXd V, Eigen::MatrixXi F) {
+Eigen::MatrixXd compute_vertices_normals(Eigen::MatrixXd V, Eigen::MatrixXi F) {
+    Eigen::MatrixXd normals;
+    Eigen::Vector3d normal_temp, v1, v2;
 
     if (V.rows() == 3 && F.rows() == 3){
-        Eigen::MatrixXd normals = Eigen::MatrixXd::Zero(3, V.cols());
-        Eigen::Vector3d normal_temp, v1, v2;
+        normals = Eigen::MatrixXd::Zero(3, V.cols());
 
         for (int i=0; i<F.cols(); i++) {
             v1 = V.col(F(1, i)) - V.col(F(0, i));
@@ -33,12 +29,9 @@ inline Eigen::MatrixXd compute_normals(Eigen::MatrixXd V, Eigen::MatrixXi F) {
                 std::cout << "Warning: normals with zero values!\n";
         }
 
-        return normals;
-
     } else if (V.cols() == 3 && F.cols() == 3){
-        Eigen::MatrixXd normals = Eigen::MatrixXd::Zero(V.rows(), 3);
-        Eigen::Vector3d normal_temp, v1, v2;
-
+        normals = Eigen::MatrixXd::Zero(V.rows(), 3);
+        
         for (int i=0; i<F.rows(); i++) {
             v1 = V.row(F(i,1)) - V.row(F(i,0));
             v2 = V.row(F(i,2)) - V.row(F(i,0));
@@ -55,11 +48,47 @@ inline Eigen::MatrixXd compute_normals(Eigen::MatrixXd V, Eigen::MatrixXi F) {
                 std::cout << "Warning: normals with zero values!\n";
         }
 
-        return normals;
+    } else {
+        throw std::invalid_argument( "wrong input size" );
+    }
+
+    return normals;
+
+};
+
+Eigen::MatrixXd compute_faces_normals(Eigen::MatrixXd V, Eigen::MatrixXi F) {
+
+    Eigen::MatrixXd normals;
+    Eigen::Vector3d v1, v2;
+    if (V.rows() == 3 && F.rows() == 3){
+        normals = Eigen::MatrixXd::Zero(3, F.cols());
+
+        for (int i=0; i<F.cols(); i++) {
+            v1 = V.col(F(1, i)) - V.col(F(0, i));
+            v2 = V.col(F(2, i)) - V.col(F(0, i));
+            normals.col(i) = ( v1.cross(v2) ).normalized();
+        }
+    
+    } else if (V.cols() == 3 && F.cols() == 3){
+        normals = Eigen::MatrixXd::Zero(F.rows(), 3);
+        
+        for (int i=0; i<F.rows(); i++) {
+            v1 = V.row(F(i,1)) - V.row(F(i,0));
+            v2 = V.row(F(i,2)) - V.row(F(i,0));
+            normals.row(i) = ( v1.cross(v2) ).normalized();
+        }
 
     } else {
         throw std::invalid_argument( "wrong input size" );
     }
+
+    return normals;
+
 };
 
-#endif
+
+
+
+
+
+

@@ -4,7 +4,8 @@
 *   16/01/2020
 */
 
-#pragma once
+#ifndef FOLDER_CHECKS_H
+#define FOLDER_CHECKS_H
 
 #include <iostream>
 #include <stdio.h>

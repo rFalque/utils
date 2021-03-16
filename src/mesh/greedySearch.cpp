@@ -3,7 +3,7 @@
 #include <iostream>
 #include <stdexcept>
  
-#include "greedySearch.hpp"
+#include "mesh/greedySearch.h"
 
 const weight_t max_weight = std::numeric_limits<double>::infinity();
 
