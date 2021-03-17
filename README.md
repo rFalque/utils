@@ -35,7 +35,13 @@ Mixture of header only and compilable functions (the aim is to get everything as
 * correspondences
 
 ## To use
-In the main CMakeLists.txt add
+Clone the git repository:
+```bash
+git clone https://github.com/rFalque/3D_tools.git
+mv 3D_tools/ utils
+```
+
+In the CMakeLists.txt of the main project add
 ```bash
 add_subdirectory(utils)
 
