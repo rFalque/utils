@@ -1,6 +1,6 @@
 # C++ tools for 3D data
 
-Mixture of header only and compilable functions (the aim is to get everything as a clean compilable library at some stage). The data structure is similar to the one used in libIGL (Eigen::MatrixXd for vertices and Eigen::MatrixXi for faces), but prioritise XYZ to be stored in the rows.
+Mixture of header only and compilable functions (the aim is to get everything as a clean compilable library at some stage). The data structure is similar to the one used in libIGL (`Eigen::MatrixXd` for vertices and `Eigen::MatrixXi` for faces), but prioritise XYZ to be stored in the rows.
 
 ## Content
 ### IO
