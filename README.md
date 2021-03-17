@@ -1,7 +1,6 @@
-# Project Title
+# C++ tools for 3D data
 
-3D tools for c++11
-
+Mixture of header only and compilable functions (the aim is to get everything as a clean compilable library at some stage).
 
 ## Content
 ### IO
@@ -22,8 +21,10 @@
 * generate sparse diagonal matrix
 
 ### mesh
-* compute_normals_from_mesh
-* greedySearch (knn search on the manifold)
+* compute the volume and surface area of a closed 3D mesh
+* compute the normals from a mesh
+* compute the faces centroids
+* knn search on the manifold (greedySearch class)
 
 ### clouds
 * centering to (0, 0, 0)
