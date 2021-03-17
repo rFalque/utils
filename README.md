@@ -2,7 +2,9 @@
 
 3D tools for c++11
 
-## IO
+
+## Content
+### IO
 * read / write PLY files            (tinyply)
 * read / write OFF files            (libigl)
 * read / write OBJ files            (libigl)
@@ -11,7 +13,7 @@
 * write PNG file                    (stb)
 * return list of files in folder    (BOOST)
 
-## EigenTools
+### EigenTools
 * wrapper for nanoflann
 * remove cols /rows
 * standardDeviation(Eigen::VectorXd)
@@ -19,14 +21,27 @@
 * concatenate 2 matrices (sparse / dense)
 * generate sparse diagonal matrix
 
-## mesh
+### mesh
 * compute_normals_from_mesh
 * greedySearch (knn search on the manifold)
 
-## clouds
+### clouds
 * centering to (0, 0, 0)
 
-## visualization
+### visualization
 * mesh / two meshes
-* cloud 
+* cloud
 * correspondences
+
+## To use
+In the main CMakeLists.txt add
+```bash
+add_subdirectory(utils)
+
+...
+
+target_link_libraries(...
+                      utils
+                      ...
+)
+```
