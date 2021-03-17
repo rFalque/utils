@@ -20,6 +20,9 @@ Mixture of header only and compilable functions (the aim is to get everything as
 * concatenate 2 matrices (sparse / dense)
 * generate sparse diagonal matrix
 
+### STDTools
+* return the sign
+
 ### mesh
 * compute the volume and surface area of a closed 3D mesh
 * compute the normals from a mesh
