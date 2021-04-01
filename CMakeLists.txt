@@ -9,28 +9,32 @@ SET(IGL_STATIC_LIBRARY "true")
 
 find_package(Eigen3 REQUIRED)
 
-set(Boost_USE_STATIC_LIBS OFF) 
-set(Boost_USE_MULTITHREADED ON)  
-set(Boost_USE_STATIC_RUNTIME OFF) 
-find_package(Boost 1.45.0 COMPONENTS filesystem) 
+set(Boost_USE_STATIC_LIBS OFF)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost 1.45.0 COMPONENTS filesystem)
 
 set(SRCS
     # couds
-    
+
+    # convertors
+    ${SRC_ROOT}/convertors/igl_to_cgal.cpp
+
     # eigenTools
-    
+    ${SRC_ROOT}/eigenTools/unique.cpp
+
     # IO
     ${SRC_ROOT}/IO/folderListFiles.cpp
-    
+
     # IO_libIGL (not compiled because of the templates)
 
     # mesh
     ${SRC_ROOT}/mesh/computeGeometricalProperties.cpp
     ${SRC_ROOT}/mesh/computeNormals.cpp
     ${SRC_ROOT}/mesh/greedySearch.cpp
-    
+
     # STDTools
-    
+
     # visualization
 
 )
@@ -38,6 +42,10 @@ set(SRCS
 set(HEADERS
     # clouds
     ${INCLUDE_ROOT}/clouds/centering.h
+
+    # convertors
+    ${INCLUDE_ROOT}/convertors/igl_to_cgal.h
+    ${INCLUDE_ROOT}/convertors/cgal_typedef.h
 
     # eigenTools
     ${INCLUDE_ROOT}/eigenTools/concatenate.h
@@ -50,6 +58,7 @@ set(HEADERS
     ${INCLUDE_ROOT}/eigenTools/sparseICP.h
     ${INCLUDE_ROOT}/eigenTools/sparse.h
     ${INCLUDE_ROOT}/eigenTools/standardDeviation.h
+    ${INCLUDE_ROOT}/eigenTools/unique.h
     ${INCLUDE_ROOT}/eigenTools/variance.h
 
     # IO
@@ -66,6 +75,8 @@ set(HEADERS
     ${INCLUDE_ROOT}/IO_libIGL/list_to_matrix.h
     ${INCLUDE_ROOT}/IO_libIGL/max_size.h
     ${INCLUDE_ROOT}/IO_libIGL/min_size.h
+    ${INCLUDE_ROOT}/IO_libIGL/ply.h
+    ${INCLUDE_ROOT}/IO_libIGL/readPLY.h
     ${INCLUDE_ROOT}/IO_libIGL/readOBJ.h
     ${INCLUDE_ROOT}/IO_libIGL/readOFF.h
     ${INCLUDE_ROOT}/IO_libIGL/readSTL.h
