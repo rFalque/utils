@@ -18,8 +18,7 @@ set(SRCS
     # couds
 
     # convertors
-    ${SRC_ROOT}/convertors/igl_to_cgal.cpp
-
+    
     # eigenTools
     ${SRC_ROOT}/eigenTools/unique.cpp
 
@@ -42,10 +41,6 @@ set(SRCS
 set(HEADERS
     # clouds
     ${INCLUDE_ROOT}/clouds/centering.h
-
-    # convertors
-    ${INCLUDE_ROOT}/convertors/igl_to_cgal.h
-    ${INCLUDE_ROOT}/convertors/cgal_typedef.h
 
     # eigenTools
     ${INCLUDE_ROOT}/eigenTools/concatenate.h
@@ -101,8 +96,25 @@ set(HEADERS
 
 )
 
-add_library(utils ${SRCS} ${HEADERS})
+IF( CGAL_FOUND )
+    set(CGAL_SRCS
+        # convertors
+        ${SRC_ROOT}/convertors/igl_to_cgal.cpp
+    )
 
+    set(CGAL_HEADERS
+        # convertors
+        ${INCLUDE_ROOT}/convertors/igl_to_cgal.h
+        ${INCLUDE_ROOT}/convertors/cgal_typedef.h
+
+        # mesh
+        ${INCLUDE_ROOT}/mesh/fillHoles.h
+
+    )
+ENDIF()
+
+
+add_library(utils ${SRCS} ${HEADERS} ${CGAL_SRCS} ${CGAL_HEADERS})
 
 target_include_directories(utils PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_include_directories(utils PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/utils")
