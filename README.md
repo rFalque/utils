@@ -12,6 +12,9 @@ Mixture of header only and compilable functions (the aim is to get everything as
 * write PNG file                    (stb)
 * return list of files in folder    (BOOST)
 
+### Convertors
+* IO to CGAL
+
 ### EigenTools
 * wrapper for nanoflann
 * remove cols /rows
@@ -28,6 +31,7 @@ Mixture of header only and compilable functions (the aim is to get everything as
 * compute the normals from a mesh
 * compute the faces centroids
 * knn search on the manifold (greedySearch class)
+* fill the holes (require CGAL)
 
 ### clouds
 * centering to (0, 0, 0)
@@ -36,6 +40,12 @@ Mixture of header only and compilable functions (the aim is to get everything as
 * mesh / two meshes
 * cloud
 * correspondences
+
+## Dependencies
+Some of the algorithms require [CGAL](https://www.cgal.org/index.html) which can be installed as:
+```bash
+sudo apt-get install libcgal-dev
+```
 
 ## To use
 Clone the git repository:
