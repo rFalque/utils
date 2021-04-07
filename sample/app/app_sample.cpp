@@ -25,7 +25,7 @@ int main()
     bool visualization = false;
 
     // vars
-    string ply_path = "../data/sample.ply";
+    string ply_path = "../data/box.ply";
     string out_path = "../data/output.ply";
 
     // load mesh
