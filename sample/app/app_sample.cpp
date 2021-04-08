@@ -22,7 +22,7 @@
 int main()
 {
     // settings
-    bool visualization = false;
+    bool visualization = true;
 
     // vars
     string ply_path = "../data/box.ply";
