@@ -35,11 +35,11 @@ int main()
     readPLY(ply_path, V, F, N, C);
 
     if (visualization) {
-        plotMesh(V, F);
-        plotCloud(V);
+        plot_mesh(V, F);
+        plot_cloud(V);
     }
 
-    writePLY(out_path, V, F, N, C);
+    writePLY(out_path, V, F, N, C, false);
 
     return(0);
 }
