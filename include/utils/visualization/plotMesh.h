@@ -51,8 +51,6 @@ class MeshVisualization
             polyscope::options::autocenterStructures = true;
             polyscope::view::windowWidth = 1024;
             polyscope::view::windowHeight = 1024;
-
-
         }
 
         void add_mesh(const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces) {
@@ -62,9 +60,27 @@ class MeshVisualization
             //polyscope::view::upDir = polyscope::view::UpDir::ZUp;
         }
 
-        void add_color(const Eigen::MatrixXd & color, std::string color_name) {
+        void add_mesh(const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces, const Eigen::Vector3d& color) {
+            polyscope::registerSurfaceMesh(mesh_object_name_, vertices.transpose(), faces.transpose());
+            polyscope::getSurfaceMesh(mesh_object_name_)->setSurfaceColor(glm::vec3{color(0), color(1), color(2)});
+            polyscope::view::resetCameraToHomeView();
+            //polyscope::view::upDir = polyscope::view::UpDir::ZUp;
+        }
+
+        void add_vertices_color(const Eigen::MatrixXd & color, std::string color_name) {
+            if ((color.array() > 1.0).any() || (color.array() < 0.0).any())
+                throw std::invalid_argument( "Error while calling \'add_faces_color\', color contais elements out of bounds (it should be between 0 and 1)" );
             if (color.cols() != 0){
                 polyscope::getSurfaceMesh(mesh_object_name_)->addVertexColorQuantity(color_name, color.transpose());
+                polyscope::getSurfaceMesh(mesh_object_name_)->getQuantity(color_name)->setEnabled(true);
+            }
+        }
+
+        void add_faces_color(const Eigen::MatrixXd & color, std::string color_name) {
+            if ((color.array() > 1.0).any() || (color.array() < 0.0).any())
+                throw std::invalid_argument( "Error while calling \'add_faces_color\', color contais elements out of bounds (it should be between 0 and 1)" );
+            if (color.cols() != 0){
+                polyscope::getSurfaceMesh(mesh_object_name_)->addFaceColorQuantity(color_name, color.transpose());
                 polyscope::getSurfaceMesh(mesh_object_name_)->getQuantity(color_name)->setEnabled(true);
             }
         }
@@ -75,6 +91,15 @@ class MeshVisualization
 
         void show() {
             polyscope::show();
+        }
+
+        void convert_vertices_to_face_color(const Eigen::MatrixXi& faces, const Eigen::MatrixXd& color_in, Eigen::MatrixXd& color_out) {
+            color_out.resize(3, faces.cols());
+            for (int i=0; i<faces.cols(); i++) {
+                color_out.col(i) = color_in.col(faces(i,0))/3 
+                                 + color_in.col(faces(i,1))/3 
+                                 + color_in.col(faces(i,2))/3;
+            }
         }
 };
 
@@ -87,10 +112,17 @@ inline bool plot_mesh (const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& f
     return true;
 };
 
+inline bool plot_mesh (const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces, const Eigen::Vector3d& color) {
+    MeshVisualization viz;
+    viz.add_mesh(vertices, faces, color);
+    viz.show();
+    return true;
+};
+
 inline bool plot_mesh (const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces, const Eigen::MatrixXd& color) {
     MeshVisualization viz;
     viz.add_mesh(vertices, faces);
-    viz.add_color(color, "highlight");
+    viz.add_vertices_color(color, "vertices highlight");
     viz.show();
     return true;
 };
@@ -98,7 +130,7 @@ inline bool plot_mesh (const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& f
 inline bool plot_mesh (const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces, const Eigen::MatrixXd& color, std::string screenshot_path) {
     MeshVisualization viz;
     viz.add_mesh(vertices, faces);
-    viz.add_color(color, "highlight");
+    viz.add_vertices_color(color, "highlight");
     viz.screenshot(screenshot_path);
     viz.show();
     return true;
@@ -107,10 +139,12 @@ inline bool plot_mesh (const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& f
 inline bool screenshot_mesh(const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces, const Eigen::MatrixXd& color, std::string screenshot_path) {
     MeshVisualization viz;
     viz.add_mesh(vertices, faces);
-    viz.add_color(color, "highlight");
+    viz.add_vertices_color(color, "highlight");
     viz.screenshot(screenshot_path);
     return true;
 };
+
+
 
 
 #endif

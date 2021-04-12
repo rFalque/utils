@@ -58,9 +58,11 @@ class CloudVisualization
             polyscope::view::resetCameraToHomeView();
         }
 
-        void add_color(const Eigen::MatrixXd & colors, std::string color_name) {
-            if (colors.rows() != 0){
-                polyscope::getPointCloud(cloud_object_name_)->addColorQuantity(color_name, colors.transpose());
+        void add_color(const Eigen::MatrixXd & color, std::string color_name) {
+            if ((color.array() > 1.0).any() || (color.array() < 0.0).any())
+                throw std::invalid_argument( "Error while calling \'add_faces_color\', color contais elements out of bounds (it should be between 0 and 1)" );
+            if (color.rows() != 0){
+                polyscope::getPointCloud(cloud_object_name_)->addColorQuantity(color_name, color.transpose());
                 polyscope::getPointCloud(cloud_object_name_)->getQuantity(color_name)->setEnabled(true);
             }
         }
