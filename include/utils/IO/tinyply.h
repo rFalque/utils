@@ -20,6 +20,8 @@
 //   tinyply header   //
 ////////////////////////
 
+#pragma once
+
 #ifndef tinyply_h
 #define tinyply_h
 

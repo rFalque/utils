@@ -51,7 +51,10 @@ sudo apt-get install libcgal-dev
 Clone the git repository:
 ```bash
 git clone https://github.com/rFalque/3D_tools.git
-mv 3D_tools/ utils
+cd 3D_tools
+git checkout convertors
+sudo chmod +x sample/setup.sh
+./sample/setup.sh
 ```
 
 In the CMakeLists.txt of the main project add

@@ -22,10 +22,10 @@
 int main()
 {
     // settings
-    bool visualization = false;
+    bool visualization = true;
 
     // vars
-    string ply_path = "../data/sample.ply";
+    string ply_path = "../data/box.ply";
     string out_path = "../data/output.ply";
 
     // load mesh
@@ -35,11 +35,11 @@ int main()
     readPLY(ply_path, V, F, N, C);
 
     if (visualization) {
-        plotMesh(V, F);
-        plotCloud(V);
+        plot_mesh(V, F);
+        plot_cloud(V);
     }
 
-    writePLY(out_path, V, F, N, C);
+    writePLY(out_path, V, F, N, C, false);
 
     return(0);
 }
