@@ -16,9 +16,9 @@ void readPLY(const std::string & filepath,
              Eigen::MatrixXd &V,
              Eigen::MatrixXi &F,
              Eigen::MatrixXd &N,
-             Eigen::MatrixXi &RGB)
+             Eigen::MatrixXi &RGB,
+             bool verbose)
 {
-    bool verbose = true;
 
 	try
 	{
@@ -52,7 +52,9 @@ void readPLY(const std::string & filepath,
                     normals_are_float = tinyply::PropertyTable[p.propertyType].str == "float";
             }
         }
-        std::cout << "vertices_are_float : " << vertices_are_float << std::endl;
+        if (verbose) {
+            std::cout << "vertices_are_float : " << vertices_are_float << std::endl;
+        }
 
 		// The header information can be used to programmatically extract properties on elements
 		// known to exist in the header prior to reading the data. For brevity of this sample, properties 
@@ -64,7 +66,7 @@ void readPLY(const std::string & filepath,
 		catch (const std::exception & e) { std::cerr << "tinyply exception: " << e.what() << std::endl; }
 
 		try { texcoords_handle = file.request_properties_from_element("vertex", { "u", "v" }); }
-		catch (const std::exception & e) { std::cerr << "tinyply exception: " << e.what() << std::endl; }
+		catch (const std::exception & e) { if (verbose) {std::cerr << "tinyply exception: " << e.what() << std::endl;} }
 
         try { RGB_handle = file.request_properties_from_element("vertex", { "red", "green" , "blue" }); }
 		catch (const std::exception & e) { std::cerr << "tinyply exception: " << e.what() << std::endl; }
@@ -148,6 +150,16 @@ void readPLY(const std::string & filepath,
 	{
 		std::cerr << "Caught tinyply exception: " << e.what() << std::endl;
 	}
+}
+
+void readPLY(const std::string & filepath,
+             Eigen::MatrixXd &V,
+             Eigen::MatrixXi &F,
+             Eigen::MatrixXd &N,
+             Eigen::MatrixXi &RGB) 
+{
+    bool verbose = false;
+    readPLY(filepath, V, F, N, RGB);
 }
 
 void readPLY(const std::string & filepath,
