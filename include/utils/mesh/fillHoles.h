@@ -37,8 +37,8 @@ inline void fill_holes(Eigen::MatrixXd& V, Eigen::MatrixXi& F) {
                         std::back_inserter(patch_vertices),
             CGAL::Polygon_mesh_processing::parameters::vertex_point_map(get(CGAL::vertex_point, CGAL_mesh)).
                         geom_traits(Kernel()));
-            std::cout << " Number of facets in constructed patch: " << patch_facets.size() << std::endl;
-            std::cout << " Number of vertices in constructed patch: " << patch_vertices.size() << std::endl;
+            //std::cout << " Number of facets in constructed patch: " << patch_facets.size() << std::endl;
+            //std::cout << " Number of vertices in constructed patch: " << patch_vertices.size() << std::endl;
             //std::cout << " Fairing : " << (success ? "succeeded" : "failed") << std::endl;
             ++nb_holes;
         }
