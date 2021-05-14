@@ -8,7 +8,6 @@ void convert_mesh_from_IGL_to_CGAL(const Eigen::MatrixXd& V, const Eigen::Matrix
     CGAL_mesh.clear();
     int n = V.cols();
     int f = F.cols();
-    std::cout << "n: " << n << std::endl;
     int e = 0;
     CGAL_mesh.reserve(n, 2*f, e);
 
