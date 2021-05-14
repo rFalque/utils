@@ -51,6 +51,9 @@ class MeshVisualization
             polyscope::options::autocenterStructures = true;
             polyscope::view::windowWidth = 1024;
             polyscope::view::windowHeight = 1024;
+            polyscope::view::style = polyscope::view::NavigateStyle::Free;
+            polyscope::options::groundPlaneMode = polyscope::GroundPlaneMode::None;
+            polyscope::view::upDir = polyscope::view::UpDir::ZUp;
         }
 
         void add_mesh(const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces) {
@@ -63,6 +66,21 @@ class MeshVisualization
         void add_mesh(const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces, const Eigen::Vector3d& color) {
             polyscope::registerSurfaceMesh(mesh_object_name_, vertices.transpose(), faces.transpose());
             polyscope::getSurfaceMesh(mesh_object_name_)->setSurfaceColor(glm::vec3{color(0), color(1), color(2)});
+            polyscope::view::resetCameraToHomeView();
+            //polyscope::view::upDir = polyscope::view::UpDir::ZUp;
+        }
+
+
+        void add_mesh(const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces, std::string mesh_new_name) {
+            polyscope::registerSurfaceMesh(mesh_new_name, vertices.transpose(), faces.transpose());
+            polyscope::getSurfaceMesh(mesh_new_name)->setSurfaceColor(glm::vec3{0.1, 0.1, 1});
+            polyscope::view::resetCameraToHomeView();
+            //polyscope::view::upDir = polyscope::view::UpDir::ZUp;
+        }
+
+        void add_mesh(const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces, const Eigen::Vector3d& color, std::string mesh_new_name) {
+            polyscope::registerSurfaceMesh(mesh_new_name, vertices.transpose(), faces.transpose());
+            polyscope::getSurfaceMesh(mesh_new_name)->setSurfaceColor(glm::vec3{color(0), color(1), color(2)});
             polyscope::view::resetCameraToHomeView();
             //polyscope::view::upDir = polyscope::view::UpDir::ZUp;
         }
