@@ -159,7 +159,7 @@ void readPLY(const std::string & filepath,
              Eigen::MatrixXi &RGB) 
 {
     bool verbose = false;
-    readPLY(filepath, V, F, N, RGB);
+    readPLY(filepath, V, F, N, RGB, verbose);
 }
 
 void readPLY(const std::string & filepath,
@@ -168,7 +168,8 @@ void readPLY(const std::string & filepath,
              Eigen::MatrixXd &N)
 {
     Eigen::MatrixXi RGB;
-    readPLY(filepath, V, F, N, RGB);
+    bool verbose = false;
+    readPLY(filepath, V, F, N, RGB, verbose);
 }
 
 void readPLY(const std::string & filepath,
@@ -177,7 +178,8 @@ void readPLY(const std::string & filepath,
 {
     Eigen::MatrixXd N;
     Eigen::MatrixXi RGB;
-    readPLY(filepath, V, F, N, RGB);
+    bool verbose = false;
+    readPLY(filepath, V, F, N, RGB, verbose);
 }
 
 void readPLY(const std::string & filepath,
@@ -186,7 +188,8 @@ void readPLY(const std::string & filepath,
 {
     Eigen::MatrixXi F;
     Eigen::MatrixXi RGB;
-    readPLY(filepath, V, F, N, RGB);
+    bool verbose = false;
+    readPLY(filepath, V, F, N, RGB, verbose);
 }
 
 #endif
