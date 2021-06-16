@@ -32,6 +32,7 @@ Mixture of header only and compilable functions (the aim is to get everything as
 * compute the faces centroids
 * knn search on the manifold (greedySearch class)
 * fill the holes (require CGAL)
+* mesh downsampling (require CGAL)
 
 ### clouds
 * centering to (0, 0, 0)
