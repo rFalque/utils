@@ -14,6 +14,7 @@
 #include <string>
 #include <vector>
 #include <cstdio>
+#include "list_to_matrix.h"
 
 namespace igl 
 {
@@ -249,16 +250,16 @@ inline bool igl::readOFF(
     // message to stderr
     return false;
   }
-  bool V_rect = igl::list_to_matrix(vV,V);
+  bool V_rect = list_to_matrix(vV,V);
   if(!V_rect)
   {
-    // igl::list_to_matrix(vV,V) already printed error message to std err
+    // list_to_matrix(vV,V) already printed error message to std err
     return false;
   }
-  bool F_rect = igl::list_to_matrix(vF,F);
+  bool F_rect = list_to_matrix(vF,F);
   if(!F_rect)
   {
-    // igl::list_to_matrix(vF,F) already printed error message to std err
+    // list_to_matrix(vF,F) already printed error message to std err
     return false;
   }
   return true;
@@ -284,25 +285,25 @@ inline bool igl::readOFF(
     // message to stderr
     return false;
   }
-  bool V_rect = igl::list_to_matrix(vV,V);
+  bool V_rect = list_to_matrix(vV,V);
   if(!V_rect)
   {
-    // igl::list_to_matrix(vV,V) already printed error message to std err
+    // list_to_matrix(vV,V) already printed error message to std err
     return false;
   }
-  bool F_rect = igl::list_to_matrix(vF,F);
+  bool F_rect = list_to_matrix(vF,F);
   if(!F_rect)
   {
-    // igl::list_to_matrix(vF,F) already printed error message to std err
+    // list_to_matrix(vF,F) already printed error message to std err
     return false;
   }
 
   if (vN.size())
   {
-    bool N_rect = igl::list_to_matrix(vN,N);
+    bool N_rect = list_to_matrix(vN,N);
     if(!N_rect)
     {
-      // igl::list_to_matrix(vN,N) already printed error message to std err
+      // list_to_matrix(vN,N) already printed error message to std err
       return false;
     }
   }
@@ -310,10 +311,10 @@ inline bool igl::readOFF(
   //Warning: RGB colors will be returned in the N matrix
   if (vC.size())
   {
-    bool C_rect = igl::list_to_matrix(vC,C);
+    bool C_rect = list_to_matrix(vC,C);
     if(!C_rect)
     {
-      // igl::list_to_matrix(vC,N) already printed error message to std err
+      // list_to_matrix(vC,N) already printed error message to std err
       return false;
     }
   }
