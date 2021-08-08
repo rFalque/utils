@@ -9,7 +9,8 @@
 //using namespace Eigen;
 
 // from: https://stackoverflow.com/a/39146048/2562693
-template<typename M> M load_csv (const std::string & path) {
+// e.g., Eigen::MatrixXd matrix = load_csv<Eigen::MatrixXd>("csv_path.csv");
+template<typename M> M read_csv (const std::string & path) {
     std::ifstream indata;
     indata.open(path);
     std::string line;
