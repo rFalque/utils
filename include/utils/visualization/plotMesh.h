@@ -124,7 +124,6 @@ class MeshVisualization
 
 inline bool plot_mesh (const Eigen::MatrixXd& vertices, const Eigen::MatrixXi& faces) {
     MeshVisualization viz;
-    std::cout << "obj created\n";
     viz.add_mesh(vertices, faces);
     viz.show();
     return true;
