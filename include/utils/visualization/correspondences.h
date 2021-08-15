@@ -17,6 +17,8 @@
 #include "polyscope/surface_mesh.h"
 #include "polyscope/curve_network.h"
 
+#include "libGraphCpp/graph.hpp"
+
 #ifndef POLYSCOPE_IS_INITIALIZED
 #define POLYSCOPE_IS_INITIALIZED
 int polyscope_is_initialized { 0 };
@@ -37,7 +39,7 @@ inline void createCurveNetwork(const Eigen::MatrixXd & source,
     }
 };
 
-inline bool plot_correspondences(const Eigen::MatrixXd & source_V,
+inline void plot_correspondences(const Eigen::MatrixXd & source_V,
                                 const Eigen::MatrixXi & source_F,
                                 const Eigen::MatrixXd & target_V,
                                 const Eigen::MatrixXi & target_F,
@@ -54,29 +56,29 @@ inline bool plot_correspondences(const Eigen::MatrixXd & source_V,
     polyscope::view::windowWidth = 1024;
     polyscope::view::windowHeight = 1024;
 
-    polyscope::registerSurfaceMesh("source", source_V, source_F);
-    polyscope::getSurfaceMesh("source")->surfaceColor = glm::vec3{0.1, 0.1, 1};
+    polyscope::registerSurfaceMesh("source", source_V.transpose(), source_F.transpose());
+    polyscope::getSurfaceMesh("source")->setSurfaceColor(glm::vec3{0.1, 0.1, 1});
 
-    polyscope::registerSurfaceMesh("target", target_V, target_F);
-    polyscope::getSurfaceMesh("target")->surfaceColor = glm::vec3{1, 0.1, 0.1};
+    polyscope::registerSurfaceMesh("target", target_V.transpose(), target_F.transpose());
+    polyscope::getSurfaceMesh("target")->setSurfaceColor(glm::vec3{1, 0.1, 0.1});
 
 
     Eigen::MatrixXd nodes;
     Eigen::MatrixXi edges;
-    createCurveNetwork(ED_source, ED_target, nodes, edges);
+    createCurveNetwork(ED_source.transpose(), ED_target.transpose(), nodes, edges);
 
     polyscope::registerCurveNetwork("correspondences", nodes, edges);
-    polyscope::getCurveNetwork("correspondences")->baseColor = glm::vec3{0, 0, 0};
+    polyscope::getCurveNetwork("correspondences")->setColor(glm::vec3{0, 0, 0});
 
     polyscope::show();
 
     polyscope::removeAllStructures();
-    return true;
-};
+    
+}
 
 
 
-inline bool plot_correspondences(libgraphcpp::Graph &source,
+inline void plot_correspondences(libgraphcpp::Graph &source,
                                 libgraphcpp::Graph &target,
                                 Eigen::VectorXd &rigidity_terms)
 {
@@ -97,14 +99,14 @@ inline bool plot_correspondences(libgraphcpp::Graph &source,
 
 
     polyscope::registerCurveNetwork("correspondences", nodes, edges);
-    polyscope::getCurveNetwork("correspondences")->baseColor = glm::vec3{0, 0, 0};
+    polyscope::getCurveNetwork("correspondences")->setColor(glm::vec3{0, 0, 0});
 
-    libgraphcpp::polyscope_plot_with_color(source_V, source_E, rigidity_terms, empty);
+    //libgraphcpp::polyscope_plot_with_color(source_V, source_E, rigidity_terms, empty);
 
 }
 
 
-inline bool plot_correspondences(libgraphcpp::Graph &source,
+inline void plot_correspondences(libgraphcpp::Graph &source,
                                 libgraphcpp::Graph &target,
                                 Eigen::VectorXd &rigidity_terms,
                                 double offset)
@@ -129,17 +131,17 @@ inline bool plot_correspondences(libgraphcpp::Graph &source,
 
     polyscope::removeAllStructures();
     polyscope::registerCurveNetwork("correspondences", correspondences_nodes, correspondences_edges);
-    polyscope::getCurveNetwork("correspondences")->baseColor = glm::vec3{1, 0, 1};
+    polyscope::getCurveNetwork("correspondences")->setColor(glm::vec3{1, 0, 1});
 
-    libgraphcpp::add_graph_with_scalar_to_plot(source_V, source_E, rigidity_terms, empty);
-    libgraphcpp::add_graph_with_scalar_to_plot(target_V, target_E, rigidity_terms, empty);
+    //libgraphcpp::add_graph_with_scalar_to_plot(source_V, source_E, rigidity_terms, empty);
+    //libgraphcpp::add_graph_with_scalar_to_plot(target_V, target_E, rigidity_terms, empty);
 
     polyscope::show();
     polyscope::removeAllStructures();
 
 }
 
-inline bool plot_correspondences(libgraphcpp::Graph &source,
+inline void plot_correspondences(libgraphcpp::Graph &source,
                                 libgraphcpp::Graph &target,
                                 Eigen::VectorXd &rigidity_terms,
                                 double offset, 
@@ -172,13 +174,13 @@ inline bool plot_correspondences(libgraphcpp::Graph &source,
     polyscope::registerCurveNetwork("correspondences", correspondences_nodes, correspondences_edges);
 
 
-    polyscope::getCurveNetwork("correspondences")->baseColor = glm::vec3{1, 0, 0};
+    polyscope::getCurveNetwork("correspondences")->setColor(glm::vec3{1, 0, 0});
 
     polyscope::getCurveNetwork("correspondences")->addEdgeColorQuantity("to_remove", edgeColor);
     polyscope::getCurveNetwork("correspondences")->getQuantity("to_remove")->setEnabled(true);
 
-    libgraphcpp::add_graph_with_scalar_to_plot(source_V, source_E, rigidity_terms, empty);
-    libgraphcpp::add_graph_with_scalar_to_plot(target_V, target_E, rigidity_terms, empty);
+    //libgraphcpp::add_graph_with_scalar_to_plot(source_V, source_E, rigidity_terms, empty);
+    //libgraphcpp::add_graph_with_scalar_to_plot(target_V, target_E, rigidity_terms, empty);
 
     polyscope::show();
     polyscope::removeAllStructures();
