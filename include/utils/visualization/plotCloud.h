@@ -48,6 +48,9 @@ class CloudVisualization
             
             // Options
             polyscope::options::autocenterStructures = false;
+            polyscope::view::style = polyscope::view::NavigateStyle::Free;
+            polyscope::options::groundPlaneMode = polyscope::GroundPlaneMode::None;
+            polyscope::view::upDir = polyscope::view::UpDir::ZUp;
             polyscope::view::windowWidth = 1024;
             polyscope::view::windowHeight = 1024;
         }
@@ -55,6 +58,8 @@ class CloudVisualization
         void add_cloud(const Eigen::MatrixXd & cloud) {
             polyscope::registerPointCloud(cloud_object_name_, cloud.transpose());
             polyscope::getPointCloud(cloud_object_name_)->setPointColor(glm::vec3{0.1, 0.1, 1});
+            polyscope::getPointCloud(cloud_object_name_)->setMaterial("flat");
+            polyscope::getPointCloud(cloud_object_name_)->setPointRadius(0.00005, true);
             polyscope::view::resetCameraToHomeView();
         }
 
