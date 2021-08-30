@@ -40,7 +40,9 @@ set(SRCS
 
 set(HEADERS
     # clouds
-    ${INCLUDE_ROOT}/clouds/centering.h
+    ${INCLUDE_ROOT}/cloud/centering.h
+    ${INCLUDE_ROOT}/cloud/downsampling.h
+    ${INCLUDE_ROOT}/cloud/poissonReconstruction.h
 
     # eigenTools
     ${INCLUDE_ROOT}/eigenTools/concatenate.h
