@@ -36,6 +36,8 @@ Mixture of header only and compilable functions (the aim is to get everything as
 
 ### clouds
 * centering to (0, 0, 0)
+* cloud downsampling (skip points)
+* Poisson surface reconstruction (require CGAL)
 
 ### visualization
 * mesh / two meshes
