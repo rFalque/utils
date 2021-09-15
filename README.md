@@ -1,6 +1,6 @@
 # C++ tools for 3D data
 
-Mixture of header only and compilable functions (the aim is to get everything as a clean compilable library at some stage). The data structure is similar to the one used in libIGL (`Eigen::MatrixXd` for vertices and `Eigen::MatrixXi` for faces), but prioritise XYZ to be stored in the rows.
+Toolbox of low level functions for 3D shape manipulation. The data structure is similar to the one used in libIGL (`Eigen::MatrixXd` for vertices and `Eigen::MatrixXi` for faces), but prioritise XYZ to be stored in the rows.
 
 ## Content
 ### IO
@@ -72,8 +72,7 @@ target_link_libraries(...
 ```
 
 ## formating
-
-auto formating is used with clang-format using:
+auto formatting is used with clang-format using:
 ```bash
 find ./ -iname *.h -o -iname *.cpp | xargs clang-format -i -style=Google
 ```
