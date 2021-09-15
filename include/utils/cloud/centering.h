@@ -4,8 +4,8 @@
 #include <Eigen/Core>
 
 inline void centering(Eigen::MatrixXd& V) {
-    Eigen::Vector3d centroid = V.colwise().mean();
-    V = V.rowwise() - centroid.transpose();
+  Eigen::Vector3d centroid = V.colwise().mean();
+  V = V.rowwise() - centroid.transpose();
 };
 
 #endif

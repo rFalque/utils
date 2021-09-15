@@ -70,3 +70,10 @@ target_link_libraries(...
                       ...
 )
 ```
+
+## formating
+
+auto formating is used with clang-format using:
+```bash
+find ./ -iname *.h -o -iname *.cpp | xargs clang-format -i -style=Google
+```

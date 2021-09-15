@@ -15,10 +15,10 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 find_package(Boost 1.45.0 COMPONENTS filesystem)
 
 set(SRCS
-    # couds
+    # coud
 
     # convertors
-    
+
     # eigenTools
     ${SRC_ROOT}/eigenTools/unique.cpp
 
@@ -39,7 +39,7 @@ set(SRCS
 )
 
 set(HEADERS
-    # clouds
+    # cloud
     ${INCLUDE_ROOT}/cloud/centering.h
     ${INCLUDE_ROOT}/cloud/downsampling.h
     ${INCLUDE_ROOT}/cloud/poissonReconstruction.h
