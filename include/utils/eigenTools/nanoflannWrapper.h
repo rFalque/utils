@@ -15,7 +15,7 @@
 #include <iostream>
 #include <memory>
 
-#include "nanoflann.hpp"
+#include "nanoflann.h"
 
 class nanoflann_wrapper {
  private:
