@@ -32,4 +32,11 @@ struct geometry {
   std::vector<uint3> triangles;
 };
 
+struct Mesh {
+  Eigen::MatrixXd V;
+  Eigen::MatrixXi F;
+  Eigen::MatrixXd N;
+  Eigen::MatrixXi RGB;
+};
+
 #endif
