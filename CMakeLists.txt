@@ -43,6 +43,7 @@ set(HEADERS
     # cloud
     ${INCLUDE_ROOT}/cloud/centering.h
     ${INCLUDE_ROOT}/cloud/downsampling.h
+    ${INCLUDE_ROOT}/cloud/optimalTransform.h
     ${INCLUDE_ROOT}/cloud/poissonReconstruction.h
 
     # eigenTools
