@@ -20,7 +20,7 @@
 #include <Eigen/Dense>
 #include <iostream>
 
-#include "nanoflann.hpp"
+#include "nanoflann.h"
 ///////////////////////////////////////////////////////////////////////////////
 namespace nanoflann {
 /// KD-tree adaptor for working with data directly stored in an Eigen Matrix,
