@@ -13,7 +13,7 @@ static inline void getMinMax(Eigen::MatrixXd& in_cloud,
     max_point = in_cloud.rowwise().maxCoeff();
     min_point = in_cloud.rowwise().minCoeff();
   } else {
-    throw std::invalid_argument("wrong input size");
+    throw std::invalid_argument("Error in " + std::string(__func__) + ": wrong input size");
   }
 };
 
