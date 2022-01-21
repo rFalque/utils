@@ -48,14 +48,14 @@ inline Eigen::SparseMatrix<T> concatenate(Eigen::SparseMatrix<T> in_1,
   // first test if the input size are correct with respect to the direction:
   if (direction == 1)
     if (in_1.cols() != in_2.cols()) {
-      std::cout << "Error: wrong input size, the cols size do not match.\n";
+      std::cout << "Error in " + std::string(__func__) + ": wrong input size, the cols size do not match.\n";
       std::exit(0);
     } else if (direction == 2)
       if (in_1.rows() != in_2.rows()) {
-        std::cout << "Error: wrong input size, the rows size do not match.\n";
+        std::cout << "Error in " + std::string(__func__) + ": wrong input size, the rows size do not match.\n";
         std::exit(0);
       } else {
-        std::cout << "Error: wrong direction (direction should be 1 or 2).\n";
+        std::cout << "Error in " + std::string(__func__) + ": wrong direction (direction should be 1 or 2).\n";
         std::exit(0);
       }
 

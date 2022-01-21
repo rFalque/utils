@@ -115,5 +115,5 @@ void GreedySearch::remove_element(int element_to_remove) {
                                  element_to_remove);
   else
     throw std::invalid_argument(
-        "the element to remove is larger than the size of sub_V");
+        "Error in " + std::string(__func__) + ": the element to remove is larger than the size of sub_V" );
 };

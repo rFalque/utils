@@ -31,7 +31,7 @@ class nanoflann_wrapper {
     } else if (target.cols() == 3) {
       this->pointcloud_ = target;
     } else {
-      throw std::invalid_argument("wrong input size");
+      throw std::invalid_argument("Error in " + std::string(__func__) + ": wrong input size");
     }
 
     // set up kdtree

@@ -58,7 +58,7 @@ class CloudVisualization {
   void add_color(const Eigen::MatrixXd& color, std::string color_name) {
     if ((color.array() > 1.0).any() || (color.array() < 0.0).any())
       throw std::invalid_argument(
-          "Error while calling \'add_faces_color\', color contais elements out "
+          "Error in " + std::string(__func__) + ": color contais elements out "
           "of bounds (it should be between 0 and 1)");
     if (color.rows() != 0) {
       polyscope::getPointCloud(cloud_object_name_)

@@ -13,7 +13,7 @@ Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> to_eigen(
   for (auto array : input)
     if (array.size() != input[0].size())
       throw std::invalid_argument(
-          "All the sub arrays do not have the same size");
+          "Error in " + std::string(__func__) + ": all the sub arrays do not have the same size");
 
   output.resize(input.size(), input[0].size());
   for (size_t i = 0; i < input.size(); i++) {
