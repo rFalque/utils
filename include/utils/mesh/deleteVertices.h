@@ -89,24 +89,6 @@ inline void deleteFacesConnectedToVertices(Eigen::MatrixXi& F,
 
 inline void deleteVertices(Eigen::MatrixXd& V,
                            Eigen::MatrixXi& F, 
-                           std::vector<int> vertices_to_delete) {
-
-    deleteFacesConnectedToVertices(F, vertices_to_delete, V.cols());
-    
-    std::vector<int> vertices_to_keep = vector_complement(vertices_to_delete, V.cols());
-
-    // update the vertices
-    Eigen::MatrixXd V_temp;
-    V_temp.resize(3, vertices_to_keep.size());
-    for (int i=0; i<vertices_to_keep.size(); i++) {
-        V_temp.col(i) = V.col(vertices_to_keep[i]);
-    }
-    V = V_temp;
-
-}
-
-inline void deleteVertices(Eigen::MatrixXd& V,
-                           Eigen::MatrixXi& F, 
                            Eigen::MatrixXd& N, 
                            Eigen::MatrixXi& C, 
                            std::vector<int> vertices_to_delete) {
@@ -144,6 +126,14 @@ inline void deleteVertices(Eigen::MatrixXd& V,
     }
     V = V_temp;
 
+}
+
+inline void deleteVertices(Eigen::MatrixXd& V,
+                           Eigen::MatrixXi& F, 
+                           std::vector<int> vertices_to_delete) {
+    Eigen::MatrixXd N;
+    Eigen::MatrixXi C;
+    deleteVertices(V, F, N, C, vertices_to_delete);
 }
 
 #endif
