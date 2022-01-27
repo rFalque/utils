@@ -11,14 +11,36 @@
 #include <algorithm>
 
 inline std::vector<int> vector_complement(std::vector<int> v, int size) {
-    // create the complement from faces_to_delete
-    std::vector <int> complement(size);
-    
-    std::sort (v.begin(), v.end(), std::greater<int>());
-    std::iota(complement.begin(), complement.end(), 0);
-    for (auto v_id:v)
-        complement.erase (complement.begin()+v_id);
-    
+
+    std::vector<int> complement(size-v.size());
+
+    if (v.size() > 0) {
+        // sort and remove duplicates
+        std::sort (v.begin(), v.end());
+        v.erase( unique( v.begin(), v.end() ), v.end() );
+
+        // populate the complement
+        int counter = 0;
+        for (int j=0; j<v[0]; j++) {
+            complement[counter] = j;
+            counter ++;
+        }
+        if (v.size() > 1) {
+            for (int i=0; i<v.size()-1; i++) {
+                for (int j=v[i]+1; j<v[i+1]; j++) {
+                    complement[counter] = j;
+                    counter ++;
+                }
+            }
+        }
+        for (int j=v.back()+1; j<size; j++) {
+            complement[counter] = j;
+            counter ++;
+        }
+    } else {
+        std::iota(complement.begin(), complement.end(), 0);
+    }
+
     return complement;
 }
 
@@ -89,7 +111,8 @@ inline void deleteVertices(Eigen::MatrixXd& V,
                            Eigen::MatrixXi& C, 
                            std::vector<int> vertices_to_delete) {
 
-    deleteFacesConnectedToVertices(F, vertices_to_delete, V.cols());
+    if (F.cols() != 0)
+        deleteFacesConnectedToVertices(F, vertices_to_delete, V.cols());
 
     std::vector<int> vertices_to_keep = vector_complement(vertices_to_delete, V.cols());
 
