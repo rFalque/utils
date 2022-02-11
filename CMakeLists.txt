@@ -16,7 +16,6 @@ find_package(Boost 1.45.0 COMPONENTS filesystem)
 
 set(SRCS
     # coud
-    ${SRC_ROOT}/cloud/poissonReconstruction.cpp
 
     # convertors
 
@@ -102,17 +101,24 @@ set(HEADERS
 
 IF( CGAL_FOUND )
     set(CGAL_SRCS
+        # coud
+        ${SRC_ROOT}/cloud/poissonReconstruction.cpp
+
         # convertors
         ${SRC_ROOT}/convertors/igl_to_cgal.cpp
     )
 
     set(CGAL_HEADERS
+        # cloud
+        ${INCLUDE_ROOT}/cloud/poissonReconstruction.h
+
         # convertors
         ${INCLUDE_ROOT}/convertors/igl_to_cgal.h
         ${INCLUDE_ROOT}/convertors/cgal_typedef.h
 
         # mesh
         ${INCLUDE_ROOT}/mesh/fillHoles.h
+        ${INCLUDE_ROOT}/mesh/raycasting.h
 
     )
 ENDIF()
