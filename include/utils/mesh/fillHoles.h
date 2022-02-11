@@ -16,7 +16,7 @@
 inline void fill_holes(Eigen::MatrixXd& V, Eigen::MatrixXi& F) {
   // convert to CGAL format
   CGAL_Poly CGAL_mesh;
-  ;
+  
   convert_mesh_from_IGL_to_CGAL_Polygon(V, F, CGAL_mesh);
 
   // Incrementally fill the holes
@@ -48,7 +48,7 @@ inline void fill_holes(Eigen::MatrixXd& V, Eigen::MatrixXi& F) {
 inline void fill_holes_and_fair(Eigen::MatrixXd& V, Eigen::MatrixXi& F) {
   // convert to CGAL format
   CGAL_Poly CGAL_mesh;
-  ;
+  
   convert_mesh_from_IGL_to_CGAL_Polygon(V, F, CGAL_mesh);
 
   // Incrementally fill the holes
