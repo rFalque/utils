@@ -6,7 +6,6 @@
 #define RAYCASTING_H
 
 #include <Eigen/Dense>
-#include <iostream>
 
 #include "utils/convertors/igl_to_cgal.h"
 
@@ -40,6 +39,12 @@ Raycasting::Raycasting(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F) : V_(
 {
     convert_mesh_from_IGL_to_CGAL(V_, F_, mesh);
     this->tree = std::make_shared< Tree >(faces(mesh).first, faces(mesh).second, mesh);
+
+    // call to random raycasting to force the initialization of the AABB tree
+    Eigen::Vector3d a, b, c;
+    a << 0, 0, 0;
+    b << 1, 1, 1;
+    cast_ray(a, b, c);
 }
 
 bool Raycasting::cast_ray(Eigen::Vector3d source, Eigen::Vector3d vector, Eigen::Vector3d & hit)
