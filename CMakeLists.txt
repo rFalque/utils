@@ -96,6 +96,7 @@ set(HEADERS
     ${INCLUDE_ROOT}/visualization/plotCloud.h
     ${INCLUDE_ROOT}/visualization/plotTwoMeshes.h
     ${INCLUDE_ROOT}/visualization/sourceAndTarget.h
+    ${INCLUDE_ROOT}/visualization/polyscopeWrapper.h
 
 )
 
