@@ -19,7 +19,7 @@ inline void downsampling(Eigen::MatrixXd& V, Eigen::MatrixXi& F,
                          int stop_predicate) {
   // convert to CGAL format
   CGAL_Poly CGAL_mesh;
-  ;
+  
   convert_mesh_from_IGL_to_CGAL_Polygon(V, F, CGAL_mesh);
 
   // perform downsampling

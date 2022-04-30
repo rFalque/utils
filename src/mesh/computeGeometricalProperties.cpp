@@ -13,7 +13,7 @@
 double compute_volume(Eigen::MatrixXd V, Eigen::MatrixXi F, Eigen::MatrixXd N) {
   if (V.rows() != 3 || F.rows() != 3 || N.rows() != 3)
     throw std::invalid_argument(
-        "Error while calling \'compute_volume\', wrong input size");
+        "Error in " + std::string(__func__) + ": wrong input size");
 
   double mesh_volume = 0;
 
@@ -43,7 +43,7 @@ double compute_volume(Eigen::MatrixXd V, Eigen::MatrixXi F, Eigen::MatrixXd N) {
 double compute_volume(Eigen::MatrixXd V, Eigen::MatrixXi F) {
   if (V.rows() != 3 || F.rows() != 3)
     throw std::invalid_argument(
-        "Error while calling \'compute_volume\', wrong input size");
+        "Error in " + std::string(__func__) + ": wrong input size");
 
   Eigen::MatrixXd N = compute_faces_normals(V, F);
   return compute_volume(V, F, N);
@@ -52,7 +52,7 @@ double compute_volume(Eigen::MatrixXd V, Eigen::MatrixXi F) {
 double compute_surface_area(Eigen::MatrixXd V, Eigen::MatrixXi F) {
   if (V.rows() != 3 || F.rows() != 3)
     throw std::invalid_argument(
-        "Error while calling \'compute_volume\', wrong input size");
+        "Error in " + std::string(__func__) + ": wrong input size");
 
   double surface_area = 0;
 

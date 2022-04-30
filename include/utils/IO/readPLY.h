@@ -211,4 +211,12 @@ void readPLY(const std::string &filepath, Eigen::MatrixXd &V,
   readPLY(filepath, V, F, N, RGB, verbose);
 }
 
+
+Mesh readPLY(const std::string & filepath)
+{
+  Mesh mesh;
+  readPLY(filepath, mesh.V, mesh.F, mesh.N, mesh.RGB, false);
+  return mesh;
+}
+
 #endif

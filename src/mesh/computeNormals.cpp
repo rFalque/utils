@@ -26,7 +26,7 @@ Eigen::MatrixXd compute_vertices_normals(Eigen::MatrixXd V, Eigen::MatrixXi F) {
       if (normals.col(i).norm() != 0)
         normals.col(i) = normals.col(i).normalized();
       else
-        std::cout << "Warning: normals with zero values!\n";
+        std::cout << "Warning in " + std::string(__func__) + ": normals with zero values!\n";
     }
 
   } else if (V.cols() == 3 && F.cols() == 3) {
@@ -45,11 +45,11 @@ Eigen::MatrixXd compute_vertices_normals(Eigen::MatrixXd V, Eigen::MatrixXi F) {
       if (normals.row(i).norm() != 0)
         normals.row(i) = normals.row(i).normalized();
       else
-        std::cout << "Warning: normals with zero values!\n";
+        std::cout << "Warning in " + std::string(__func__) + ": normals with zero values!\n";
     }
 
   } else {
-    throw std::invalid_argument("wrong input size");
+    throw std::invalid_argument("Error in " + std::string(__func__) + ": wrong input size");
   }
 
   return normals;
@@ -77,7 +77,7 @@ Eigen::MatrixXd compute_faces_normals(Eigen::MatrixXd V, Eigen::MatrixXi F) {
     }
 
   } else {
-    throw std::invalid_argument("wrong input size");
+    throw std::invalid_argument("Error in " + std::string(__func__) + ": wrong input size");
   }
 
   return normals;
