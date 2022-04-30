@@ -31,4 +31,16 @@ inline void downsampling_skip(Eigen::MatrixXd& V, Eigen::MatrixXd& N,
   C = C_temp;
 };
 
+inline void downsampling_skip(Eigen::MatrixXd& V, int skip) {
+  int cloud_new_size = V.cols() / skip;
+  Eigen::MatrixXd V_temp(3, cloud_new_size);
+
+  for (int i = 0; i < cloud_new_size; i++) {
+    V_temp.col(i) = V.col(i * skip);
+  }
+
+  V = V_temp;
+};
+
+
 #endif
