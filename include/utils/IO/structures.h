@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include <vector>
+#include <Eigen/Dense>
 
 struct float2 {
   float x, y;
