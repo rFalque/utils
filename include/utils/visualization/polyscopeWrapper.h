@@ -13,6 +13,8 @@
 
 #include <string>
 
+#include "utils/IO/structures.h"
+
 #include "polyscope/polyscope.h"
 #include "polyscope/messages.h"
 #include "polyscope/surface_mesh.h"
@@ -69,6 +71,28 @@ namespace visualization {
     }
 
 
+    // shape
+    inline void add_shape(const Mesh & shape, std::string shape_name) {
+        if (shape.F.cols() == 0) {
+            polyscope::registerPointCloud(shape_name, shape.V.transpose());
+            polyscope::getPointCloud(shape_name)->setPointColor(glm::vec3{0.1, 0.1, 1});
+            polyscope::view::resetCameraToHomeView();
+            if (shape.RGB.cols() != 0){
+                Eigen::MatrixXd C = shape.RGB.cast <double> ()/255;
+                polyscope::getPointCloud(shape_name)->addColorQuantity("color", C.transpose());
+                polyscope::getPointCloud(shape_name)->getQuantity("color")->setEnabled(true);
+            }
+        } else {
+            polyscope::registerSurfaceMesh(shape_name, shape.V.transpose(), shape.F.transpose());
+            polyscope::getSurfaceMesh(shape_name)->setSurfaceColor(glm::vec3{0.1, 0.1, 1});
+            polyscope::view::resetCameraToHomeView();
+            if (shape.RGB.cols() != 0){
+                Eigen::MatrixXd C = shape.RGB.cast <double> ()/255;
+                polyscope::getSurfaceMesh(shape_name)->addVertexColorQuantity("color", C.transpose());
+                polyscope::getSurfaceMesh(shape_name)->getQuantity("color")->setEnabled(true);
+            }
+        }
+    }
 
 
 	inline void add_color_to_graph(const Eigen::MatrixXd & nodes_colors,
