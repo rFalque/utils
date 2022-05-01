@@ -112,4 +112,8 @@ void writePLY(const std::string &filepath, Eigen::MatrixXd &V,
   writePLY(filepath, V, F, N, RGB, write_in_ascii);
 }
 
+void writePLY(const std::string &filepath, Mesh mesh, bool write_in_ascii) {
+  writePLY(filepath, mesh.V, mesh.F, mesh.N, mesh.RGB, write_in_ascii);
+}
+
 #endif
