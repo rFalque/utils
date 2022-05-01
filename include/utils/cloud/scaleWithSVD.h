@@ -6,7 +6,10 @@
 #include <Eigen/Core>
 #include <Eigen/SVD>
 
-inline void scale_with_SVD(Eigen::MatrixXd& src_V, const Eigen::MatrixXd &trg_V) { 
+inline void scale_with_SVD(Eigen::MatrixXd& src_V_in, const Eigen::MatrixXd &trg_V_in) { 
+    Eigen::MatrixXd src_V = src_V_in.transpose();
+    Eigen::MatrixXd trg_V = trg_V_in.transpose();
+
     // perform SVD for each input
     Eigen::JacobiSVD<Eigen::MatrixXd> svd_source(src_V, Eigen::ComputeThinU | Eigen::ComputeThinV);
     Eigen::JacobiSVD<Eigen::MatrixXd> svd_target(trg_V, Eigen::ComputeThinU | Eigen::ComputeThinV);
@@ -22,6 +25,8 @@ inline void scale_with_SVD(Eigen::MatrixXd& src_V, const Eigen::MatrixXd &trg_V)
 
     // change back to XYZ basis
     src_V = src_V * svd_source.matrixV();
+
+    src_V_in = src_V.transpose();
 };
 
 #endif

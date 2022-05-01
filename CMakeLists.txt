@@ -44,6 +44,7 @@ set(HEADERS
     ${INCLUDE_ROOT}/cloud/downsampling.h
     ${INCLUDE_ROOT}/cloud/optimalTransform.h
     ${INCLUDE_ROOT}/cloud/poissonReconstruction.h
+    ${INCLUDE_ROOT}/cloud/scaleWithSVD.h
 
     # eigenTools
     ${INCLUDE_ROOT}/eigenTools/concatenate.h
