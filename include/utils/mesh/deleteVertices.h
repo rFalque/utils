@@ -136,4 +136,14 @@ inline void deleteVertices(Eigen::MatrixXd& V,
     deleteVertices(V, F, N, C, vertices_to_delete);
 }
 
+void deleteVerticesWithoutColor(Eigen::Vector3i color, Eigen::MatrixXd &V, Eigen::MatrixXi &F, Eigen::MatrixXd &N, Eigen::MatrixXi &C) {
+    std::vector<int> vertices_to_delete;
+    for (int i=0; i<V.cols(); i++) {
+        if (C.col(i) != color) 
+            vertices_to_delete.push_back(i);
+    }
+    deleteVertices(V, F, N, C, vertices_to_delete);
+}
+
+
 #endif
