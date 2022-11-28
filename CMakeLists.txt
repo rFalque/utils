@@ -108,6 +108,9 @@ IF( CGAL_FOUND )
 
         # convertors
         ${SRC_ROOT}/convertors/igl_to_cgal.cpp
+
+        # mesh
+        ${SRC_ROOT}/mesh/nonRigidDeformation.cpp
     )
 
     set(CGAL_HEADERS
@@ -120,6 +123,7 @@ IF( CGAL_FOUND )
 
         # mesh
         ${INCLUDE_ROOT}/mesh/fillHoles.h
+        ${INCLUDE_ROOT}/mesh/nonRigidDeformation.h
         ${INCLUDE_ROOT}/mesh/raycasting.h
 
     )
