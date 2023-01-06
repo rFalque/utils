@@ -2,6 +2,7 @@
 #define DOWNSAMPLING_H
 
 #include <Eigen/Core>
+#include <vector>
 
 inline void downsampling_skip(Eigen::MatrixXd& V, Eigen::MatrixXd& N,
                               Eigen::MatrixXi& C, int skip) {
@@ -42,5 +43,15 @@ inline void downsampling_skip(Eigen::MatrixXd& V, int skip) {
   V = V_temp;
 };
 
+bool farthest_sampling_by_sphere(Eigen::MatrixXd & in_cloud, double sample_radius, Eigen::MatrixXd & nodes, Eigen::VectorXi & correspondences);
+bool farthest_sampling_by_sphere(Eigen::MatrixXd & in_cloud, double sample_radius, Eigen::MatrixXd & nodes);
+void voxel_grid_downsampling(Eigen::MatrixXd & in_cloud, double leaf_size, Eigen::MatrixXd & out_cloud);
+void downsampling(Eigen::MatrixXd & in_cloud, 
+                  Eigen::MatrixXd & out_cloud, 
+                  std::vector<int> & in_cloud_samples, 
+                  double grid_resolution,
+                  double leaf_size, 
+                  bool use_farthest_sampling, 
+                  bool use_relative_grid);
 
 #endif
