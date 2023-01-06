@@ -19,12 +19,11 @@
 
 class nanoflann_wrapper {
  private:
-  std::shared_ptr<nanoflann::KDTreeEigenMatrixAdaptor<Eigen::MatrixXd> >
-      kd_tree_index;
   Eigen::MatrixXd pointcloud_;
+  std::shared_ptr<nanoflann::KDTreeEigenMatrixAdaptor<Eigen::MatrixXd> > kd_tree_index;
 
  public:
-  nanoflann_wrapper(Eigen::MatrixXd& target) {
+  nanoflann_wrapper(Eigen::MatrixXd target) {
     // check inputs
     if (target.rows() == 3) {
       this->pointcloud_ = target.transpose();

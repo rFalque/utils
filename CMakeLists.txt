@@ -16,6 +16,7 @@ find_package(Boost 1.45.0 COMPONENTS filesystem)
 
 set(SRCS
     # coud
+    ${SRC_ROOT}/cloud/downsampling.cpp
 
     # convertors
 
