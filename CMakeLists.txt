@@ -17,6 +17,7 @@ find_package(Boost 1.45.0 COMPONENTS filesystem)
 set(SRCS
     # coud
     ${SRC_ROOT}/cloud/downsampling.cpp
+    ${SRC_ROOT}/cloud/embeddedDeformation.cpp
 
     # convertors
 
@@ -43,6 +44,7 @@ set(HEADERS
     # cloud
     ${INCLUDE_ROOT}/cloud/centering.h
     ${INCLUDE_ROOT}/cloud/downsampling.h
+    ${INCLUDE_ROOT}/cloud/embeddedDeformation.h
     ${INCLUDE_ROOT}/cloud/optimalTransform.h
     ${INCLUDE_ROOT}/cloud/poissonReconstruction.h
     ${INCLUDE_ROOT}/cloud/scaleWithSVD.h
@@ -138,4 +140,4 @@ target_include_directories(utils PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/ut
 target_include_directories(utils PRIVATE ${EIGEN3_INCLUDE_DIR})
 target_include_directories(utils PRIVATE ${Boost_INCLUDE_DIRS})
 
-target_link_libraries(utils ${Boost_LIBRARIES} )
+target_link_libraries(utils polyscope ${Boost_LIBRARIES} )
