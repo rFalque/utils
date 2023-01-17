@@ -15,10 +15,10 @@
 
 
 // dependencies
-#include "embeddedDeformation.h"
+#include "utils/cloud/embeddedDeformation.h"
 
-#include "nanoflannWrapper.hpp"
-#include "greedySearch.hpp"
+#include "utils/eigenTools/nanoflannWrapper.h"
+#include "utils/mesh/greedySearch.h"
 //#include "downsampling.hpp"
 #include "utils/cloud/downsampling.h"
 
@@ -37,7 +37,7 @@ EmbeddedDeformation::EmbeddedDeformation(Eigen::MatrixXd V_in,
 										   Eigen::MatrixXi F_in,
 										   Eigen::MatrixXd N_in, 
 										   Eigen::MatrixXi E_in,
-										   options opts)
+										   embeddedDeformationOptions opts)
 {
 	std::cout << "embedded deformation constructor: graph provided\n";
 
@@ -98,7 +98,7 @@ EmbeddedDeformation::EmbeddedDeformation(Eigen::MatrixXd V_in, Eigen::MatrixXi F
 
 	// define edges
 	Eigen::MatrixXi E(N.rows()*(nodes_connectivity_+1), 2);
-	greedy_search search_object(V_, F_, indexes_of_deformation_graph_in_V_);
+	GreedySearch search_object(V_, F_, indexes_of_deformation_graph_in_V_);
     std::vector<int> closest_points;
 	int counter = 0;
     for (int i = 0; i < N.rows(); ++i) {
@@ -117,7 +117,7 @@ EmbeddedDeformation::EmbeddedDeformation(Eigen::MatrixXd V_in, Eigen::MatrixXi F
 }
 
 EmbeddedDeformation::EmbeddedDeformation(Eigen::MatrixXd V_in, Eigen::MatrixXi F_in,
-										   options opts)
+										   embeddedDeformationOptions opts)
 {
 	std::cout << "use geodesic distance to look for closest point\n";
 
@@ -155,7 +155,7 @@ EmbeddedDeformation::EmbeddedDeformation(Eigen::MatrixXd V_in, Eigen::MatrixXi F
 
 	// define edges
 	Eigen::MatrixXi E(N.rows()*(nodes_connectivity_+1), 2);
-	greedy_search search_object(V_, F_, indexes_of_deformation_graph_in_V_);
+	GreedySearch search_object(V_, F_, indexes_of_deformation_graph_in_V_);
     std::vector<int> closest_points;
 	int counter = 0;
     for (int i = 0; i < N.rows(); ++i) {
@@ -223,7 +223,7 @@ EmbeddedDeformation::EmbeddedDeformation(Eigen::MatrixXd V_in,
 
 
 EmbeddedDeformation::EmbeddedDeformation(Eigen::MatrixXd V_in,
-										   options opts)
+										   embeddedDeformationOptions opts)
 {
 	std::cout << "use knn to look for closest point\n";
 
@@ -299,11 +299,11 @@ void EmbeddedDeformation::deform(Eigen::MatrixXd sources_in, Eigen::MatrixXd tar
 	std::vector< std::vector<int> > sources_nodes_neighbours;
 
 	// declare the greedy_search object
-	greedy_search *deformation_graph_greedy_search = nullptr;
+	GreedySearch *deformation_graph_greedy_search = nullptr;
 	nanoflann_wrapper *deformation_graph_kdtree = nullptr;
 
 	if (use_dijkstra_)
-		deformation_graph_greedy_search = new greedy_search(V_, F_, indexes_of_deformation_graph_in_V_);
+		deformation_graph_greedy_search = new GreedySearch(V_, F_, indexes_of_deformation_graph_in_V_);
 	if (use_knn_)
 		deformation_graph_kdtree = new nanoflann_wrapper(deformation_graph_ptr_->get_nodes());
 
@@ -557,11 +557,11 @@ void EmbeddedDeformation::update_normals(Eigen::MatrixXd & normals) {
 	}
 
 	// declare the greedy_search object
-	greedy_search *search_object;
+	GreedySearch *search_object;
 	nanoflann_wrapper *tree2;
 
 	if (use_dijkstra_)
-		search_object = new greedy_search(V_, F_, indexes_of_deformation_graph_in_V_);
+		search_object = new GreedySearch(V_, F_, indexes_of_deformation_graph_in_V_);
 	if (use_knn_)
 		tree2 = new nanoflann_wrapper(deformation_graph_ptr_->get_nodes());
 

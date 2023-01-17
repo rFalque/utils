@@ -94,6 +94,15 @@ namespace visualization {
         }
     }
 
+	inline void add_graph(const Eigen::MatrixXd & nodes,
+				   const Eigen::MatrixXi & edges, 
+				   std::string graph_name) {
+		polyscope::registerPointCloud(graph_name+"_nodes", nodes);
+		polyscope::getPointCloud(graph_name+"_nodes")->setPointColor(glm::vec3{1, 0, 0});
+		polyscope::registerCurveNetwork(graph_name+"_edges", nodes, edges);
+        polyscope::getCurveNetwork(graph_name+"_edges")->setColor(glm::vec3{0, 0, 0});
+	}
+
 
 	inline void add_color_to_graph(const Eigen::MatrixXd & nodes_colors,
 							const Eigen::MatrixXd & edges_colors,
