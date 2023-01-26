@@ -46,7 +46,16 @@ namespace visualization {
 
     inline void add_colors_to_mesh(const Eigen::MatrixXd & colors, std::string mesh_name, std::string color_name) {
         if (colors.rows() != 0){
-            polyscope::getSurfaceMesh(mesh_name)->addVertexColorQuantity(color_name, colors);
+            polyscope::getSurfaceMesh(mesh_name)->addVertexColorQuantity(color_name, colors.transpose());
+            polyscope::getSurfaceMesh(mesh_name)->getQuantity(color_name)->setEnabled(true);
+        }
+    }
+
+    inline void add_colors_to_mesh(const Eigen::MatrixXi & colors, std::string mesh_name, std::string color_name) {
+        Eigen::MatrixXd color_double = colors.cast <double> ();
+        color_double = color_double/255;
+        if (color_double.rows() != 0){
+            polyscope::getSurfaceMesh(mesh_name)->addVertexColorQuantity(color_name, color_double.transpose());
             polyscope::getSurfaceMesh(mesh_name)->getQuantity(color_name)->setEnabled(true);
         }
     }
