@@ -8,6 +8,7 @@ SET(SRC_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 SET(IGL_STATIC_LIBRARY "true")
 
 find_package(Eigen3 REQUIRED)
+find_package(CGAL)
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
@@ -102,6 +103,7 @@ set(HEADERS
 )
 
 IF( CGAL_FOUND )
+    message("ADDING CGAL DEPENDENT FILES")
     set(CGAL_SRCS
         # coud
         ${SRC_ROOT}/cloud/poissonReconstruction.cpp
@@ -127,6 +129,8 @@ IF( CGAL_FOUND )
         ${INCLUDE_ROOT}/mesh/raycasting.h
 
     )
+ELSE()
+    message("IGNORING CGAL DEPENDENT FILES")
 ENDIF()
 
 
@@ -137,4 +141,8 @@ target_include_directories(utils PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/ut
 target_include_directories(utils PRIVATE ${EIGEN3_INCLUDE_DIR})
 target_include_directories(utils PRIVATE ${Boost_INCLUDE_DIRS})
 
-target_link_libraries(utils ${Boost_LIBRARIES} )
+target_link_libraries(utils ${Boost_LIBRARIES})
+
+IF( CGAL_FOUND )
+    target_link_libraries(utils CGAL::CGAL)
+ENDIF()
