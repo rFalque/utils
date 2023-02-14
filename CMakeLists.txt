@@ -60,6 +60,8 @@ set(HEADERS
     ${INCLUDE_ROOT}/eigenTools/standardDeviation.h
     ${INCLUDE_ROOT}/eigenTools/unique.h
     ${INCLUDE_ROOT}/eigenTools/variance.h
+    ${INCLUDE_ROOT}/eigenTools/reduce.hpp
+    ${INCLUDE_ROOT}/eigenTools/toVector.hpp
 
     # IO
     ${INCLUDE_ROOT}/IO/folderChecks.h
