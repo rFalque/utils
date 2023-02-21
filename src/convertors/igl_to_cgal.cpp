@@ -126,8 +126,6 @@ void convert_mesh_from_CGAL_poly_to_IGL(const CGAL_Poly& poly,
 
   V.resize(3, poly.size_of_vertices());
   F.resize(3, poly.size_of_facets());
-  std::cout << "V size: " << V.rows() << " by " << V.cols() << std::endl;
-  std::cout << "F size: " << F.rows() << " by " << F.cols() << std::endl;
 
   typedef typename Polyhedron::Vertex_const_iterator Vertex_iterator;
   std::map<Vertex_iterator,size_t> vertex_to_index;
