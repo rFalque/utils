@@ -20,4 +20,6 @@ target_link_libraries(${filename} ${Boost_LIBRARIES} )
 int load_folder(std::string folder_path, std::vector<std::string>& filepaths,
                 std::vector<std::string>& filenames);
 
+int list_subfolders(std::string folder_path, std::vector<std::string>& subfolders);
+
 #endif

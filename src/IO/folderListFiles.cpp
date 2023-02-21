@@ -49,3 +49,28 @@ int load_folder(std::string folder_path, std::vector<std::string>& filepaths,
 
   return 0;
 };
+
+int list_subfolders(std::string folder_path, std::vector<std::string>& subfolders) {
+  boost::filesystem::path sub_maps_path(folder_path);
+  if (!boost::filesystem::exists(sub_maps_path)) return -1;
+
+  int counter = 0;
+  boost::filesystem::directory_iterator
+      end_itr;  // default construction yields past-the-end
+
+  // count the number of files to load
+  for (boost::filesystem::directory_iterator itr(sub_maps_path); itr != end_itr;
+       ++itr) {
+    std::string filename = itr->path().stem().c_str();
+    std::string filepath = itr->path().c_str();
+    if (boost::filesystem::is_directory(itr->status())) {
+      subfolders.push_back(filename);
+      counter++;
+    }
+  }
+
+  std::sort(subfolders.begin(), subfolders.end(), sort_functor());
+
+  return 0;
+};
+
