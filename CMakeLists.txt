@@ -7,7 +7,13 @@ SET(SRC_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/src/")
 
 SET(IGL_STATIC_LIBRARY "true")
 
+# required packages
 find_package(Eigen3 REQUIRED)
+
+# non-required packages
+find_package(CGAL)
+find_package(Ceres)
+find_package(yaml-cpp)
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
@@ -17,7 +23,6 @@ find_package(Boost 1.45.0 COMPONENTS filesystem)
 set(SRCS
     # coud
     ${SRC_ROOT}/cloud/downsampling.cpp
-    ${SRC_ROOT}/cloud/embeddedDeformation.cpp
 
     # convertors
 
@@ -44,7 +49,6 @@ set(HEADERS
     # cloud
     ${INCLUDE_ROOT}/cloud/centering.h
     ${INCLUDE_ROOT}/cloud/downsampling.h
-    ${INCLUDE_ROOT}/cloud/embeddedDeformation.h
     ${INCLUDE_ROOT}/cloud/optimalTransform.h
     ${INCLUDE_ROOT}/cloud/poissonReconstruction.h
     ${INCLUDE_ROOT}/cloud/scaleWithSVD.h
@@ -132,8 +136,21 @@ IF( CGAL_FOUND )
     )
 ENDIF()
 
+IF( CERES_FOUND )
+    set(CERES_SRCS
+        # cloud
+        ${SRC_ROOT}/cloud/embeddedDeformation.cpp
+    )
 
-add_library(utils ${SRCS} ${HEADERS} ${CGAL_SRCS} ${CGAL_HEADERS})
+    set(CERES_HEADERS
+        # cloud
+        ${INCLUDE_ROOT}/cloud/embeddedDeformation.h
+        ${INCLUDE_ROOT}/cloud/embeddedDeformationCostFunction.h
+        ${INCLUDE_ROOT}/cloud/embeddedDeformationOPtions.h
+    )
+ENDIF()
+
+add_library(utils ${SRCS} ${HEADERS} ${CGAL_SRCS} ${CGAL_HEADERS} ${CERES_SRCS} ${CERES_HEADERS})
 
 target_include_directories(utils PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_include_directories(utils PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/utils")
@@ -141,3 +158,18 @@ target_include_directories(utils PRIVATE ${EIGEN3_INCLUDE_DIR})
 target_include_directories(utils PRIVATE ${Boost_INCLUDE_DIRS})
 
 target_link_libraries(utils polyscope ${Boost_LIBRARIES} )
+
+if( CGAL_FOUND )
+    target_include_directories(utils PRIVATE ${CGAL_INCLUDE_DIRS})
+    target_link_libraries(utils ${CGAL_LIBRARIES})
+endif()
+
+if( CERES_FOUND )
+    target_include_directories(utils PRIVATE ${CERES_INCLUDE_DIRS})
+    target_link_libraries(utils ${CERES_LIBRARIES})
+endif()
+
+if( yaml-cpp_FOUND )
+    target_include_directories(utils PRIVATE ${YAML_CPP_INCLUDE_DIR})
+    target_link_libraries(utils ${YAML_CPP_LIBRARIES})
+endif()
