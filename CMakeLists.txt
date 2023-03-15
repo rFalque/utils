@@ -162,7 +162,7 @@ target_include_directories(utils PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include/ut
 target_include_directories(utils PRIVATE ${EIGEN3_INCLUDE_DIR})
 target_include_directories(utils PRIVATE ${Boost_INCLUDE_DIRS})
 
-target_link_libraries(utils polyscope ${Boost_LIBRARIES} )
+target_link_libraries(utils ${Boost_LIBRARIES} )
 
 if( CGAL_FOUND )
     target_include_directories(utils PRIVATE ${CGAL_INCLUDE_DIRS})

@@ -415,7 +415,7 @@ void EmbeddedDeformation::deform(Eigen::MatrixXd sources_in, Eigen::MatrixXd tar
 	options.check_gradients = false;
 	options.gradient_check_relative_precision = 0.01;
 	options.minimizer_progress_to_stdout = verbose_;
-	options.num_threads = 1;
+	options.num_threads = 4;
 	options.max_num_iterations = 100;
 	options.function_tolerance = 1e-10;
 	options.parameter_tolerance = 1e-10;
@@ -604,7 +604,7 @@ void EmbeddedDeformation::update_normals(Eigen::MatrixXd & normals) {
 	}
 }
 
-void EmbeddedDeformation::show_deformation_graph()
-{
-	visualization::plot(*deformation_graph_ptr_, "deformation graph");
-}
+//void EmbeddedDeformation::show_deformation_graph()
+//{
+//	visualization::plot(*deformation_graph_ptr_, "deformation graph");
+//}

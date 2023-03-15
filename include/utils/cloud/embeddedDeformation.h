@@ -16,7 +16,7 @@
 //#include "libGraphCpp/graph.hpp"
 #include "utils/graph/graph.h"
 //#include "libGraphCpp/plotGraph.hpp"
-#include "utils/visualization/plotGraph.h"
+//#include "utils/visualization/plotGraph.h"
 
 #include "utils/cloud/downsampling.h"
 
@@ -57,7 +57,7 @@ public:
 	void deform(Eigen::MatrixXd sources_in, Eigen::MatrixXd targets_in, Eigen::MatrixXd & V_deformed);
 	void deform_other_points(Eigen::MatrixXd & V);
 	void update_normals(Eigen::MatrixXd & normals);
-	void show_deformation_graph();
+	//void show_deformation_graph();
 
 private:
 	// by order of appearance:
