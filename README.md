@@ -45,6 +45,11 @@ Toolbox of low level functions for 3D shape manipulation. The data structure is 
 * correspondences
 
 ## Dependencies
+Standard dependencies
+```bash
+sudo apt-get install libeigen3-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libboost-all-dev libyaml-cpp-dev
+```
+
 Some of the algorithms require [CGAL](https://www.cgal.org/index.html) which can be installed as:
 ```bash
 sudo apt-get install libcgal-dev
