@@ -7,15 +7,16 @@
 struct embeddedDeformationOptions
 {
     /* data */
-    std::string path_pairwise_correspondence;
-    std::string path_input_file;
+    std::string path_source_file;
+    std::string path_target_file;
+    std::string path_source_annotations;
+    std::string path_target_annotations;
     std::string path_output_file;
-    std::string path_input_obj;
-    std::string path_graph_obj;
 
     bool   visualization;
     bool   verbose;
     bool   graph_provided;
+    double correspondences_threshold;
 
     // embedded deformation deformation graph
     bool   use_geodesic;
@@ -44,21 +45,16 @@ struct embeddedDeformationOptions
         std::cout << "list of the parameters:" << std::endl;
         std::cout << std::endl;
         std::cout << "*** IO files: ***" << std::endl;
-        if (graph_provided)
-        {
-            std::cout <<  "path_input_obj: " << path_input_obj << std::endl;
-            std::cout <<  "path_graph_obj: " << path_graph_obj << std::endl;
-        }
-        else
-        {
-            std::cout <<  "path_input_file: " << path_input_file << std::endl;
-        }
+        std::cout << "path_source_file: " << path_source_file << std::endl;
+        std::cout << "path_target_file: " << path_target_file << std::endl;
+        std::cout << "path_source_annotations: " << path_source_annotations << std::endl;
+        std::cout << "path_target_annotations: " << path_target_annotations << std::endl;
         std::cout << "path_output_file: " << path_output_file << std::endl;
-        std::cout << "path_pairwise_correspondence: " << path_pairwise_correspondence << std::endl;
         std::cout << std::endl;
         std::cout << "*** General parameters ***" << std::endl;
         std::cout << "visualization: " << visualization << std::endl;
         std::cout << "verbose: " << verbose << std::endl;
+        std::cout << "correspondences_threshold: " << correspondences_threshold << std::endl;
         std::cout << std::endl;
         std::cout << "*** Embedded deformation parameters ***" << std::endl;
         std::cout << "use_geodesic: " << use_geodesic << std::endl;
@@ -79,18 +75,19 @@ struct embeddedDeformationOptions
 
     bool loadYAML(std::string config_file){
         YAML::Node config = YAML::LoadFile(config_file);
-        
+
         // IO
-        path_input_file                 = config["io_files"]["input_ply"].as<std::string>();
+        path_source_file                = config["io_files"]["source_ply"].as<std::string>();
+        path_target_file                = config["io_files"]["target_ply"].as<std::string>();
+        path_source_annotations         = config["io_files"]["source_annotations"].as<std::string>();
+        path_target_annotations         = config["io_files"]["target_annotations"].as<std::string>();
         path_output_file                = config["io_files"]["output_ply"].as<std::string>();
-        path_input_obj                  = config["io_files"]["input_obj"].as<std::string>();
-        path_graph_obj                  = config["io_files"]["graph_obj"].as<std::string>();
-        path_pairwise_correspondence    = config["io_files"]["pointwise_correspondence"].as<std::string>();
 
         // general options
         visualization                   = config["general_params"]["visualization"].as<bool>();
         verbose                         = config["general_params"]["verbose"].as<bool>();
         graph_provided                  = config["general_params"]["graph_provided"].as<bool>();
+        correspondences_threshold       = config["general_params"]["correspondences_threshold"].as<double>();
 
         // embedded deformation parameters
         use_geodesic                    = config["embedded_deformation"]["use_geodesic"].as<bool>();
