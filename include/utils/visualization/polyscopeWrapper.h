@@ -30,7 +30,7 @@ namespace visualization {
             polyscope::view::windowWidth = 1024;
             polyscope::view::windowHeight = 1024;
             polyscope::view::style = polyscope::view::NavigateStyle::Free;
-            polyscope::view::upDir = polyscope::view::UpDir::NegZUp;
+            polyscope::view::upDir = polyscope::view::UpDir::YUp;
     }
 
     inline void close() {
@@ -159,7 +159,7 @@ namespace visualization {
     // vectors
     inline void add_vectors(const Eigen::MatrixXd& vectors_begin, const Eigen::MatrixXd& vectors_end, std::string vectors_name) {
         polyscope::registerPointCloud(vectors_name, vectors_begin.transpose());
-        polyscope::getPointCloud(vectors_name)->addVectorQuantity("vectors", (vectors_end - vectors_begin).transpose(), polyscope::VectorType::STANDARD);
+        polyscope::getPointCloud(vectors_name)->addVectorQuantity("vectors", (vectors_end - vectors_begin).transpose(), polyscope::VectorType::AMBIENT);
         polyscope::getPointCloud(vectors_name)->getQuantity("vectors")->setEnabled(true);
         polyscope::view::resetCameraToHomeView();
     }
