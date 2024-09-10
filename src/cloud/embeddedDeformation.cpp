@@ -604,6 +604,12 @@ void EmbeddedDeformation::update_normals(Eigen::MatrixXd & normals) {
 	}
 }
 
+//void EmbeddedDeformation::get_graph(Eigen::MatrixXd & V, Eigen::MatrixXi & E)
+std::tuple<Eigen::MatrixXd, Eigen::MatrixXi> EmbeddedDeformation::get_graph()
+{
+	return std::make_tuple(deformation_graph_ptr_->get_nodes(), deformation_graph_ptr_->get_edges());
+}
+
 //void EmbeddedDeformation::show_deformation_graph()
 //{
 //	visualization::plot(*deformation_graph_ptr_, "deformation graph");
