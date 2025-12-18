@@ -58,7 +58,7 @@ sudo apt-get install libcgal-dev
 ## To use
 Clone the git repository and generate a minimalistic project:
 ```bash
-git clone https://github.com/rFalque/3D_tools.git
+git clone https://github.com/rFalque/utils.git
 cd utils
 sudo chmod +x sample/setup.sh
 ./sample/setup.sh
